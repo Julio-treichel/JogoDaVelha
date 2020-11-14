@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Jogo da Velha</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+	<link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+
+</head>
+<body>
+		<h1 align="center">Jogo da Velha</h1>
+        <hr>
+        <p id="jogada">
+            
+        </p>
+        <div id="content">
+			<table class="tableJogoVelha"  border="1">
+				<tr>
+					<td class="celula" id="linha1Coluna1" onclick="adicionarXAqui('linha1Coluna1', 1)"></td>
+					<td class="celula" id="linha1Coluna2" onclick="adicionarXAqui('linha1Coluna2', 2)"></td>
+					<td class="celula" id="linha1Coluna3" onclick="adicionarXAqui('linha1Coluna3', 3)"></td>
+				</tr>
+				<tr>
+					<td class="celula" id="linha2Coluna1"  onclick="adicionarXAqui('linha2Coluna1', 4)"></td>
+					<td class="celula" id="linha2Coluna2"  onclick="adicionarXAqui('linha2Coluna2', 5)"></td>
+					<td class="celula" id="linha2Coluna3"  onclick="adicionarXAqui('linha2Coluna3', 6)"></td>
+				</tr>
+	
+				<tr>
+					<td class="celula" id="linha3Coluna1" onclick="adicionarXAqui('linha3Coluna1', 7)"></td>
+					<td class="celula" id="linha3Coluna2" onclick="adicionarXAqui('linha3Coluna2', 8)"></td>
+					<td class="celula" id="linha3Coluna3" onclick="adicionarXAqui('linha3Coluna3', 9)"></td>
+				</tr>
+			</table>
+    </div>
+</body>
+
+
+<script type="text/javascript">
+	var quadrantesMarcados = [];
+	var vezx = "Vez do jogador: X"
+	var vezo = "Vez do jogador: O"
+
+	document.getElementById('jogada').innerHTML = vezx
+
+	var arrayIdComQuadrante = [
+		"", 
+		"linha1Coluna1", 
+		"linha1Coluna2", 
+		"linha1Coluna3", 
+		"linha2Coluna1", 
+		"linha2Coluna2", 
+		"linha2Coluna3", 
+		"linha3Coluna1", 
+		"linha3Coluna2", 
+		"linha3Coluna3", 
+	]
+
+	function preencheVelha(idQuadrante, tipo, valorQuadrante){
+		if (valorQuadrante == 0) {
+			return;
+		}
+
+		var elemento = document.getElementById(idQuadrante);
+		if (tipo == "x") {
+			elemento.innerHTML = "<i class='fas fa-times'></i>";
+		} else {
+			elemento.innerHTML = "<i class='far fa-circle'></i>";
+		}
+		quadrantesMarcados.push(valorQuadrante);
+		document.getElementById('jogada').innerHTML = vezx
+	}
+
+	function adicionarXAqui(idCelula, quadrante){	
+		document.getElementById('jogada').innerHTML = vezx
+		if (quadrantesMarcados.indexOf(quadrante) == -1 ) {
+			preencheVelha(idCelula, "x", quadrante)
+			document.getElementById('jogada').innerHTML = vezo
+			setTimeout(() => {
+				efetuarJogadaDaMaquina();
+			}, 2000);			
+		}			
+	}
+
+	function efetuarJogadaDaMaquina() {
+
+		var quadranteMaquina = Math.floor((Math.random() * 9) + 1);
+		let stack = 0;
+
+		while (quadrantesMarcados.indexOf(quadranteMaquina) != -1) {
+			
+			quadranteMaquina = Math.floor((Math.random() * 9) + 1);
+			console.log("quadrante:" + quadranteMaquina);
+			stack++;
+				if (stack > 40)
+				break
+		}
+
+		if (quadrantesMarcados.indexOf(quadranteMaquina) == -1 ) {
+			console.log("NÃO ACHEI NENHUM QUADRANTE. Quandrante: " + quadranteMaquina);
+
+			idQuadranteEscolhidoPelaMaquina = arrayIdComQuadrante[quadranteMaquina]
+			
+			preencheVelha(idQuadranteEscolhidoPelaMaquina, "0", quadranteMaquina)
+
+		} 
+
+	} 
+	/*  */
+</script>
+</html>

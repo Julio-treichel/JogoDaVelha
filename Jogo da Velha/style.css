@@ -1,0 +1,21 @@
+body {
+    background-color: #d4d4d4;
+}
+
+.tableJogoVelha {
+    border: 0;
+    text-align: center;
+}
+
+.celula {
+    width: 30px;
+    height: 30px;
+}
+
+#content {
+    margin-left: 46%;
+}
+
+#jogada {
+    text-align: center;
+}
